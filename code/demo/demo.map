@@ -1,0 +1,30 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00040000                        . = 0x40000
+
+.text           0x00040000       0x7e
+ *(.text*)
+ .text          0x00040000       0x7e code/demo/demo.o
+                0x00040000                _start
+                0x00040034                psg_write
+                0x00040052                psg_silence
+ *(.rodata*)
+
+.data           0x00040080        0x0
+ *(.data*)
+ .data          0x00040080        0x0 code/demo/demo.o
+
+.bss            0x00040080        0x0
+ *(.bss*)
+ .bss           0x00040080        0x0 code/demo/demo.o
+ *(COMMON)
+LOAD code/demo/demo.o
+OUTPUT(code/demo/demo.elf elf32-m68k)

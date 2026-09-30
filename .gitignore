@@ -1,0 +1,9 @@
+tmp/
+logs/
+.history/
+*-backups/
+*.kicad_prl
+~*.lck
+code/demo/*.o
+routing.dsn
+routing.ses
