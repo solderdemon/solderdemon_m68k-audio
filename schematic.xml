@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\savcu\OneDrive\Desktop\SolderDeonHardware\solderdemon_m68k-audio\solderdemon_m68k-audio.kicad_sch</source>
-    <date>2026-09-30T11:28:20</date>
+    <date>2026-10-13T20:25:09</date>
     <tool>Eeschema 10.0.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -11,7 +11,7 @@
         <rev>r1-prototype</rev>
         <date>2026-09-29</date>
         <source>solderdemon_m68k-audio.kicad_sch</source>
-        <comment number="1" value="Copyright (c) 2026 SolderDemon, CERN OHL v1.2"/>
+        <comment number="1" value="Copyright (c) 2026 SolderDemon"/>
         <comment number="2" value=""/>
         <comment number="3" value=""/>
         <comment number="4" value=""/>

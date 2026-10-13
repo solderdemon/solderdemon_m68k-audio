@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "SolderDemonAudio") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonAudio.pretty") (options "") (descr "Audio card footprints: SolderDemon logo")))
