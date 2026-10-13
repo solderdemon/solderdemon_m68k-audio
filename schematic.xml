@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\savcu\OneDrive\Desktop\SolderDeonHardware\solderdemon_m68k-audio\solderdemon_m68k-audio.kicad_sch</source>
-    <date>2026-10-13T20:25:09</date>
+    <date>2026-10-13T21:40:47</date>
     <tool>Eeschema 10.0.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -664,144 +664,6 @@
         </unit>
       </units>
     </comp>
-    <comp ref="TP1">
-      <value>GND</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>56a44a1f-de54-531f-b846-c7a96b22ae8c</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="TP2">
-      <value>CAPTURE</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>39868047-4765-5863-b0ea-dd2552bca7c6</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="TP3">
-      <value>BDIR</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>09607b6d-5ec4-5e7e-8e4a-627bcb04e1cc</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="TP4">
-      <value>A1</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>92914c3a-39c9-5654-8c35-1025052dea13</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="TP5">
-      <value>DTACK</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>5dec0b35-ccfb-555b-83c0-c48002f3809b</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="TP6">
-      <value>PSGCLK</value>
-      <footprint>TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</footprint>
-      <fields>
-        <field name="Footprint">TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector" part="TestPoint" description="test point"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="solderdemon_m68k-audio.kicad_sch"/>
-      <property name="ki_keywords" value="test point tp"/>
-      <property name="ki_fp_filters" value="Pin* Test*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>f5cf43c9-0f94-53b5-9ee8-f3a29430de97</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
     <comp ref="U1">
       <value>YM2149F</value>
       <footprint>Package_DIP:DIP-40_W15.24mm</footprint>
@@ -1068,23 +930,6 @@
         <pin num="38" name="C" type="output"/>
         <pin num="39" name="TEST1" type="passive"/>
         <pin num="40" name="VCC" type="power_in"/>
-      </pins>
-    </libpart>
-    <libpart lib="Connector" part="TestPoint">
-      <description>test point</description>
-      <footprints>
-        <fp>Pin*</fp>
-        <fp>Test*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">TP</field>
-        <field name="Value">TestPoint</field>
-        <field name="Footprint"/>
-        <field name="Datasheet"/>
-        <field name="Description">test point</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Connector_Audio" part="AudioJack3_SwitchTR">
@@ -1368,9 +1213,6 @@
     <library logical="Audio">
       <uri>${KICAD10_SYMBOL_DIR}/Audio.kicad_sym</uri>
     </library>
-    <library logical="Connector">
-      <uri>${KICAD10_SYMBOL_DIR}/Connector.kicad_sym</uri>
-    </library>
     <library logical="Connector_Audio">
       <uri>${KICAD10_SYMBOL_DIR}/Connector_Audio.kicad_sym</uri>
     </library>
@@ -1405,7 +1247,6 @@
     </net>
     <net code="2" name="/A1" class="Default">
       <node ref="J1" pin="1" pinfunction="A1_1" pintype="passive"/>
-      <node ref="TP4" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U1" pin="28" pinfunction="BC2_28" pintype="input"/>
       <node ref="U3" pin="8" pinfunction="A1_8" pintype="input"/>
     </net>
@@ -1463,13 +1304,11 @@
     </net>
     <net code="16" name="/BDIR" class="Default">
       <node ref="R3" pin="1" pintype="passive"/>
-      <node ref="TP3" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U1" pin="27" pinfunction="BDIR_27" pintype="input"/>
       <node ref="U3" pin="16" pinfunction="BDIR_16" pintype="output"/>
     </net>
     <net code="17" name="/CAPTURE" class="Default">
       <node ref="R4" pin="1" pintype="passive"/>
-      <node ref="TP2" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U2" pin="11" pinfunction="CP_11" pintype="input"/>
       <node ref="U3" pin="21" pinfunction="CAPTURE_21" pintype="output"/>
     </net>
@@ -1528,7 +1367,6 @@
     </net>
     <net code="30" name="/DTACK" class="Default">
       <node ref="J1" pin="57" pinfunction="DTACK_57" pintype="passive"/>
-      <node ref="TP5" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U3" pin="14" pinfunction="~{DTACK}_14" pintype="open_collector"/>
     </net>
     <net code="31" name="/GND" class="Default">
@@ -1548,7 +1386,6 @@
       <node ref="R5" pin="2" pintype="passive"/>
       <node ref="R6" pin="2" pintype="passive"/>
       <node ref="R7" pin="2" pintype="passive"/>
-      <node ref="TP1" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U1" pin="1" pinfunction="VSS_1" pintype="power_in"/>
       <node ref="U1" pin="24" pinfunction="~{A9}_24" pintype="input"/>
       <node ref="U1" pin="29" pinfunction="BC1_29" pintype="input"/>
@@ -1605,7 +1442,6 @@
     </net>
     <net code="40" name="/PSGCLK" class="Default">
       <node ref="R1" pin="2" pintype="passive"/>
-      <node ref="TP6" pin="1" pinfunction="1_1" pintype="passive"/>
       <node ref="U1" pin="22" pinfunction="CLOCK_22" pintype="input"/>
     </net>
     <net code="41" name="/PSGD0" class="Default">

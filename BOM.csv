@@ -28,9 +28,3 @@ R12,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 R13,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 J2,SJ1-3525N / LINE OUT,Connector_Audio:Jack_3.5mm_CUI_SJ1-3525N_Horizontal
 J3,L / GND / R,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
-TP1,GND,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm
-TP2,CAPTURE,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm
-TP3,BDIR,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm
-TP4,A1,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm
-TP5,DTACK,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm
-TP6,PSGCLK,TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm

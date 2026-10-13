@@ -1,6 +1,6 @@
 """Final audio-card build step: brand the existing routed KiCad files.
 
-Use KiCad's Python after finish_board.py and sync_metadata.py. This script does
+Use KiCad's Python after route_card.py and sync_metadata.py. This script does
 not replace the routed board, nets or footprints.
 """
 
@@ -17,17 +17,18 @@ NAME = 'solderdemon_m68k-audio'
 TITLE = 'SolderDemon m68k Audio / YM2149F'
 NOTICE = 'Copyright (c) 2026 SolderDemon'
 OLD_NOTICES = ('Copyright (c) 2026 SolderDemon, CERN OHL v1.2',)
-# Bottom silkscreen, mirrored, in the free area between U4, U2, X1 and the test points.
-BACK_TEXT = (('Copyright (c) 2026 SolderDemon', 54, 61),)
-DROPPED_TEXT = ('CERN OHL v1.2', 'SolderDemon m68k Audio', 'rosco_m68k AUDIO')
+# Bottom silkscreen, mirrored, behind the logo: the card details the front leaves out.
+BACK_TEXT = (('YM2149F / ABC STEREO', 22.5, 4.5, 1.0), ('F00101 ADDR / F00103 DATA', 22.5, 6.5, .8),
+             ('Copyright (c) 2026 SolderDemon', 22.5, 8.5, .8))
+# 'J1  1' repeated the J1 designator; the footprint's square pad and silk corner mark pin 1.
+DROPPED_TEXT = ('CERN OHL v1.2', 'SolderDemon m68k Audio', 'rosco_m68k AUDIO', 'r1  2026-09', 'J1  1')
+CLI = os.environ.get('KICAD_CLI', 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe')
 LIB = 'SolderDemonAudio'
 LOGO_FP = 'SolderDemon_Logo'
-# SolderDemon identity as on solderdemon_m68k-gpio: the pixel logo with the name under it,
-# in the free column between U4/U3 and U2/X1, above the test points.
-LX, LOGO_Y = 52.5, 58.3
-IDENTITY = (('SolderDemon', 67.3, 1.5, True), ('m68k Audio Card', 69.3, 1.0, False),
-            ('YM2149F / ABC STEREO', 70.9, .8, False))
-CLI = os.environ.get('KICAD_CLI', 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe')
+# SolderDemon identity on the front: only the pixel logo (tools/make_logo.py) and the card name under it,
+# between the jack and U1; the details are on the back (BACK_TEXT).
+LX, LOGO_Y = 22.5, 8.2
+IDENTITY = (('SolderDemon', 16.6, 1.5, True), ('m68k Audio Card', 18.6, 1.0, False))
 
 
 def brand_schematic(path):
@@ -60,26 +61,30 @@ def brand_board(path):
         title.SetComment(0, NOTICE)
         changed = True
     # Removed items stay referenced until the end: a freed SWIG object breaks the others.
+    back_only = {text for text, *_ in BACK_TEXT}
     gone = [drawing for drawing in board.GetDrawings()
-            if isinstance(drawing, pcb.PCB_TEXT) and drawing.GetText() in DROPPED_TEXT]
+            if isinstance(drawing, pcb.PCB_TEXT) and (drawing.GetText() in DROPPED_TEXT or
+               drawing.GetText() in back_only and drawing.GetLayer() == pcb.F_SilkS)]
     for drawing in gone:
         board.Remove(drawing)
         changed = True
     changed |= place_references(board)
     changed |= add_identity(board)
-    back = {drawing.GetText() for drawing in board.GetDrawings()
+    back = {drawing.GetText(): drawing for drawing in board.GetDrawings()
             if isinstance(drawing, pcb.PCB_TEXT) and drawing.GetLayer() == pcb.B_SilkS}
-    for text, x, y in BACK_TEXT:
-        if text in back:
+    for text, x, y, size in BACK_TEXT:
+        drawing = back.get(text)
+        if drawing is None:
+            drawing = pcb.PCB_TEXT(board)
+            drawing.SetText(text)
+            drawing.SetLayer(pcb.B_SilkS)
+            drawing.SetMirrored(True)
+            board.Add(drawing)
+        elif drawing.GetPosition() == mm(x, y) and drawing.GetTextSize() == mm(size, size):
             continue
-        drawing = pcb.PCB_TEXT(board)
-        drawing.SetText(text)
-        drawing.SetLayer(pcb.B_SilkS)
-        drawing.SetPosition(pcb.VECTOR2I(pcb.FromMM(x), pcb.FromMM(y)))
-        drawing.SetTextSize(pcb.VECTOR2I(pcb.FromMM(.8), pcb.FromMM(.8)))
-        drawing.SetTextThickness(pcb.FromMM(.12))
-        drawing.SetMirrored(True)
-        board.Add(drawing)
+        drawing.SetPosition(mm(x, y))
+        drawing.SetTextSize(mm(size, size))
+        drawing.SetTextThickness(pcb.FromMM(size * .15))
         changed = True
     if changed:
         project = path.with_suffix('.kicad_pro')
@@ -112,10 +117,12 @@ def place_references(board):
             x, y = cx, cy
             angle = 90 if a.x == b.x else 0
         elif str(footprint.GetFPID().GetLibItemName()).startswith('CP_Radial'):
-            # 6.3 mm can: beside it on the left (C7, C8 next to J3), above it otherwise.
-            x, y = (cx - 4.4, cy) if ref in ('C7', 'C8') else (cx, cy - 4.3)
+            # 6.3 mm can: C7 and C8 to the right, between the can and its bleeder; C6 above.
+            x, y = (cx + 4.5, cy) if ref in ('C7', 'C8') else (cx, cy - 4.3)
+        elif a.x == b.x:
+            x, y = cx, cy - 3.4               # upright 5.0 x 2.5 mm disc: just above its outline
         else:
-            x, y = cx, cy - 2.25          # 5.0 x 2.5 mm disc: just above its outline
+            x, y = cx, cy - 2.25              # 5.0 x 2.5 mm disc: just above its outline
         text = footprint.Reference()
         size = mm(1, 1)
         if (text.GetPosition() != mm(x, y) or text.GetTextAngleDegrees() != angle or
@@ -149,8 +156,9 @@ def add_identity(board):
             drawing.SetLayer(pcb.F_SilkS)
             board.Add(drawing)
         elif (drawing.GetPosition() == mm(LX, y) and drawing.GetTextSize() == mm(size, size)
-                and drawing.IsBold() == bold):
+                and drawing.IsBold() == bold and drawing.GetHorizJustify() == pcb.GR_TEXT_H_ALIGN_CENTER):
             continue
+        drawing.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
         drawing.SetPosition(mm(LX, y))
         drawing.SetTextSize(mm(size, size))
         drawing.SetTextThickness(pcb.FromMM(size * .15))

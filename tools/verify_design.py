@@ -21,9 +21,11 @@ for pin,net in parts['J1']['nets'].items():
  if net:assert ('VCC' if net=='+5V' else net)==host[int(pin)]
 f=next(f for f in b.GetFootprints() if f.GetReference()=='J1')
 coords={int(p.GetNumber()):(round(pcb.ToMM(p.GetPosition().x),3),round(pcb.ToMM(p.GetPosition().y),3)) for p in f.Pads()}
+# J1 rows stand 10.46 and 7.92 mm in from the bus edge (the bottom of the outline).
+bus=round(pcb.ToMM(b.GetBoardEdgesBoundingBox().GetBottom()),1)
 for row in range(32):
- assert coords[2*row+1]==(round(10.63+row*2.54,3),89.54)
- assert coords[2*row+2]==(round(10.63+row*2.54,3),92.08)
+ assert coords[2*row+1]==(round(10.63+row*2.54,3),round(bus-10.46,3))
+ assert coords[2*row+2]==(round(10.63+row*2.54,3),round(bus-7.92,3))
 assert not f.IsFlipped()
 # Verify critical pins directly against manufacturer pinouts, not helper arrays.
 assert {p:parts['U1']['nets'][p] for p in ['1','23','24','25','26','27','28','29','40']}=={'1':'GND','23':'RESET','24':'GND','25':'+5V','26':'+5V','27':'BDIR','28':'A1','29':'GND','40':'+5V'}

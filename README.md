@@ -17,8 +17,7 @@ Designed as a vertical daughterboard for the [SolderDemon m68k bus board](../sol
 - **Bus Safety:** `BC1` is tied to GND and the hardware only accepts write cycles. Read cycles and PSG GPIO directions are physically excluded, eliminating any possibility of bus contention.
 - **Passive ABC Stereo:** 1 kΩ channel loads and a resistive mixer: Channel A to left, Channel C to right, Channel B centered in both channels at −6.9 dB, followed by 10 µF AC coupling (`C7`/`C8`) and 100 kΩ DC bleeders.
 - **Dual Outputs:** Front/side 3.5 mm TRS stereo jack **CUI SJ1-3525N** (`J2`) and an internal 1×3 vertical header (`J3`: L / GND / R) for case or mixer wiring.
-- **Test Points:** 6 dedicated probe points (`TP1`–`TP6`) for oscilloscope/logic analyzer timing verification (GND, CAPTURE, BDIR, A1, DTACK, PSGCLK).
-- **Busboard Form Factor:** 100 × 100 mm 2-layer PCB, R25 mm top corners and R4 mm bottom corners. Plugs vertically into any 2×32 Eurocard bus slot (`J1`).
+- **Busboard Form Factor:** 100 × 69 mm 2-layer PCB with R4 mm corners. Plugs vertically into any 2×32 Eurocard bus slot (`J1`).
 - **100% Through-Hole (THT):** All ICs socketed in standard DIP packages, axial/radial passive components for straightforward DIY assembly.
 
 ---
@@ -148,7 +147,6 @@ galasm code/pld/audio_sequencer.pld
 | **C1–C5** | 100 nF | Disc / Ceramic, P2.5 mm | Decoupling capacitors (one per IC and oscillator). |
 | **C6** | 47 µF / 16V | Radial D6.3 mm, P2.5 mm | Bulk electrolytic reservoir capacitor near bus power pins. |
 | **C7, C8** | 10 µF / 16V | Radial D6.3 mm, P2.5 mm | AC coupling electrolytic capacitors (+ terminal toward mixer). |
-| **TP1–TP6** | Test Point Pads | THT Pad D2.0 mm, Drill 1.0 mm | Oscilloscope test points: GND, CAPTURE, BDIR, A1, DTACK, PSGCLK. |
 
 > **Height & Sockets:** Use low-profile DIP sockets (one DIP-40, one DIP-24, two DIP-20, one DIP-8) and low-profile radial capacitors to ensure clearance within the standard 20.32 mm (0.8") Eurocard backplane slot pitch.
 
@@ -215,14 +213,14 @@ minipro -p ATF22V10C -w code/pld/audio_sequencer.jed
    - With ICs unpopulated, plug into a powered-off backplane and verify +5 V on power pins and 0 Ω to GND on ground pins. Ensure no VCC-to-GND shorts exist.
 2. **PLD & Clock Verification:**
    - Insert `X1` and `U3` (programmed ATF22V10C). Power on the board.
-   - Probe `TP6` (`PSGCLK`) with an oscilloscope to confirm a clean 1.8432 MHz square wave.
+   - Probe `U1` pin 22 (`PSGCLK`) with an oscilloscope to confirm a clean 1.8432 MHz square wave.
 3. **Logic & PSG Installation:**
    - Power off, install `U4` (74HCT688), `U2` (74HCT273), and `U1` (YM2149F).
    - Connect active/powered speakers or an amplifier line input to `J2` (3.5 mm jack). **Do not connect passive speakers or low-impedance headphones directly** (this is a line-level output).
 4. **Running the Demo:**
    - Load `code/demo/demo.bin` into memory at `0x00040000` via the SolderDemon m68k serial bootloader.
    - Execute the code. You should hear a clear C-major triad played across channels A, B, and C for approximately 1 second, followed by clean silence.
-   - Verify with an oscilloscope that `TP3` (`BDIR`) and `TP5` (`DTACK`) pulse during each register access.
+   - Verify with an oscilloscope that `BDIR` (`U1` pin 27) and `~DTACK` (`U3` pin 14) pulse during each register access.
 
 ---
 

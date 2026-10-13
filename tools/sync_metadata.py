@@ -7,6 +7,7 @@ x=ET.parse(root/'schematic.xml');pininfo={}
 for n in x.findall('./nets/net'):
     for a in n.findall('node'):pininfo[(a.get('ref'),a.get('pin'))]=(n.get('name'),a.get('pinfunction'),a.get('pintype'))
 for f in b.GetFootprints():
+    if f.GetReference() not in parts:continue  # LOGO1 is board-only
     f.SetExcludedFromBOM(False)
     f.SetFPID(p.LIB_ID(*parts[f.GetReference()]['fp'].split(':')))
     for pad in f.Pads():

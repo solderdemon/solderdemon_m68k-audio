@@ -75,7 +75,7 @@
     ],
     "pos": [
       10.63,
-      89.54
+      58.54
     ],
     "rot": 90,
     "fp": "Connector_PinSocket_2.54mm:PinSocket_2x32_P2.54mm_Horizontal",
@@ -112,8 +112,8 @@
       66.04
     ],
     "pos": [
-      14,
-      70
+      27.3,
+      43.24
     ],
     "rot": 90,
     "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
@@ -154,8 +154,8 @@
       66.04
     ],
     "pos": [
-      14,
-      49
+      27.3,
+      29.62
     ],
     "rot": 90,
     "fp": "Package_DIP:DIP-24_W7.62mm_Socket_LongPads",
@@ -192,8 +192,8 @@
       66.04
     ],
     "pos": [
-      60,
-      49
+      63.9,
+      29.62
     ],
     "rot": 90,
     "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
@@ -250,8 +250,8 @@
       198.12
     ],
     "pos": [
-      40,
-      27
+      38.5,
+      17.8
     ],
     "rot": 90,
     "fp": "Package_DIP:DIP-40_W15.24mm",
@@ -272,8 +272,8 @@
       157.48
     ],
     "pos": [
-      72,
-      68
+      61.5,
+      43.24
     ],
     "rot": 0,
     "fp": "Oscillator:Oscillator_DIP-8",
@@ -292,8 +292,8 @@
       152.4
     ],
     "pos": [
-      86,
-      64
+      76,
+      35.62
     ],
     "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -312,8 +312,8 @@
       172.72
     ],
     "pos": [
-      91,
-      64
+      80.5,
+      35.62
     ],
     "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -332,10 +332,10 @@
       198.12
     ],
     "pos": [
-      27,
-      30
+      85,
+      35.62
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
     "uuid": "c90a8e13-760e-52ad-b79b-5f0d9c4b1c26"
   },
@@ -352,10 +352,10 @@
       198.12
     ],
     "pos": [
-      40,
-      30
+      89.5,
+      35.62
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
     "uuid": "1c784956-c631-5b80-b4df-efb28314e6a0"
   },
@@ -372,10 +372,10 @@
       254
     ],
     "pos": [
-      40,
-      6
+      34.2,
+      8.93
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
     "uuid": "266500e7-5348-5a70-9415-cb577b0451c4"
   },
@@ -392,10 +392,10 @@
       254
     ],
     "pos": [
-      60,
-      35
+      59.6,
+      24.56
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
     "uuid": "f97ffd98-223e-58f1-9a26-f5952b9741e2"
   },
@@ -412,10 +412,10 @@
       254
     ],
     "pos": [
-      28,
-      36
+      23,
+      24.56
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
     "uuid": "f83fb389-8e27-57ce-9f95-669469a28473"
   },
@@ -432,10 +432,10 @@
       254
     ],
     "pos": [
-      14,
-      56
+      23,
+      38.18
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
     "uuid": "58ae96f3-e43b-5eae-b7d8-6273924a10c9"
   },
@@ -452,10 +452,10 @@
       254
     ],
     "pos": [
-      72,
-      55
+      55.5,
+      38.18
     ],
-    "rot": 0,
+    "rot": 270,
     "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
     "uuid": "3a65a580-412b-5fa3-b800-c2da2ca5139c"
   },
@@ -472,8 +472,8 @@
       254
     ],
     "pos": [
-      6,
-      76
+      92,
+      25.81
     ],
     "rot": 0,
     "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
@@ -492,8 +492,8 @@
       157.48
     ],
     "pos": [
-      17,
-      24
+      22.0,
+      53.54
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -512,8 +512,8 @@
       157.48
     ],
     "pos": [
-      17,
-      29
+      33.5,
+      53.54
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -532,8 +532,8 @@
       157.48
     ],
     "pos": [
-      17,
-      34
+      45.0,
+      53.54
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -552,8 +552,8 @@
       187.96
     ],
     "pos": [
-      27,
-      8
+      22,
+      49.04
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -572,8 +572,8 @@
       187.96
     ],
     "pos": [
-      27,
-      13
+      33.5,
+      49.04
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -592,8 +592,8 @@
       187.96
     ],
     "pos": [
-      27,
-      18
+      45,
+      49.04
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -612,8 +612,8 @@
       187.96
     ],
     "pos": [
-      27,
-      23
+      56.5,
+      49.04
     ],
     "rot": 0,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -632,8 +632,8 @@
       220.98
     ],
     "pos": [
-      20,
-      8
+      5,
+      31
     ],
     "rot": 0,
     "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
@@ -652,8 +652,8 @@
       220.98
     ],
     "pos": [
-      20,
-      15
+      5,
+      42
     ],
     "rot": 0,
     "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
@@ -672,8 +672,8 @@
       220.98
     ],
     "pos": [
-      5,
-      55
+      13.5,
+      27.19
     ],
     "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -692,8 +692,8 @@
       220.98
     ],
     "pos": [
-      5,
-      44
+      13.5,
+      38.19
     ],
     "rot": 270,
     "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -716,7 +716,7 @@
     ],
     "pos": [
       4.5,
-      33
+      17
     ],
     "rot": 270,
     "fp": "Connector_Audio:Jack_3.5mm_CUI_SJ1-3525N_Horizontal",
@@ -736,8 +736,8 @@
       233.68
     ],
     "pos": [
-      10,
-      12
+      18.5,
+      33.96
     ],
     "rot": 0,
     "fp": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
@@ -780,119 +780,5 @@
     "rot": 0,
     "fp": "",
     "uuid": "a75bf7c0-cf71-5b4b-ac7a-361d79d2ba1a"
-  },
-  {
-    "ref": "TP1",
-    "key": "Connector:TestPoint",
-    "value": "GND",
-    "nets": {
-      "1": "GND"
-    },
-    "xy": [
-      152.4,
-      271.78
-    ],
-    "pos": [
-      49,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "56a44a1f-de54-531f-b846-c7a96b22ae8c"
-  },
-  {
-    "ref": "TP2",
-    "key": "Connector:TestPoint",
-    "value": "CAPTURE",
-    "nets": {
-      "1": "CAPTURE"
-    },
-    "xy": [
-      177.8,
-      271.78
-    ],
-    "pos": [
-      55,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "39868047-4765-5863-b0ea-dd2552bca7c6"
-  },
-  {
-    "ref": "TP3",
-    "key": "Connector:TestPoint",
-    "value": "BDIR",
-    "nets": {
-      "1": "BDIR"
-    },
-    "xy": [
-      203.2,
-      271.78
-    ],
-    "pos": [
-      61,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "09607b6d-5ec4-5e7e-8e4a-627bcb04e1cc"
-  },
-  {
-    "ref": "TP4",
-    "key": "Connector:TestPoint",
-    "value": "A1",
-    "nets": {
-      "1": "A1"
-    },
-    "xy": [
-      228.6,
-      271.78
-    ],
-    "pos": [
-      67,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "92914c3a-39c9-5654-8c35-1025052dea13"
-  },
-  {
-    "ref": "TP5",
-    "key": "Connector:TestPoint",
-    "value": "DTACK",
-    "nets": {
-      "1": "DTACK"
-    },
-    "xy": [
-      254.0,
-      271.78
-    ],
-    "pos": [
-      73,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "5dec0b35-ccfb-555b-83c0-c48002f3809b"
-  },
-  {
-    "ref": "TP6",
-    "key": "Connector:TestPoint",
-    "value": "PSGCLK",
-    "nets": {
-      "1": "PSGCLK"
-    },
-    "xy": [
-      279.4,
-      271.78
-    ],
-    "pos": [
-      79,
-      76
-    ],
-    "rot": 0,
-    "fp": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "uuid": "f5cf43c9-0f94-53b5-9ee8-f3a29430de97"
   }
 ]

@@ -87,7 +87,7 @@ def footprint(name, grid, height, layer):
 
 
 if __name__ == '__main__':
-    height = float(sys.argv[1]) if len(sys.argv) > 1 else 15.0
+    height = float(sys.argv[1]) if len(sys.argv) > 1 else 13.0
     layer = sys.argv[2] if len(sys.argv) > 2 else 'F.SilkS'
     name = 'SolderDemon_Logo'
     grid = cells(ROOT / 'images' / 'solderdemon-logo.png')
