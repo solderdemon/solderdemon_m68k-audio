@@ -9,11 +9,11 @@ R1,33,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 R2,33,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 R3,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 R4,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-C1,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C2,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C3,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C4,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C5,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C1,100nF,SolderDemonCaps:C_Radial_5.08mm
+C2,100nF,SolderDemonCaps:C_Radial_5.08mm
+C3,100nF,SolderDemonCaps:C_Radial_5.08mm
+C4,100nF,SolderDemonCaps:C_Radial_5.08mm
+C5,100nF,SolderDemonCaps:C_Radial_5.08mm
 C6,47uF / 16V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
 R5,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 R6,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal

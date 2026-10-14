@@ -9,7 +9,7 @@ Sound expansion card for SolderDemon m68k, built for the SolderDemon m68k expans
 ## Local source inspection (2026-09-14)
 
 - At project intake, the initial KiCad 10 schematic and PCB files were empty. The current project files are `solderdemon_m68k-audio.kicad_sch` and `solderdemon_m68k-audio.kicad_pcb`.
-- ../rosco_6502-audio contains an existing YM2149F design, reference datasheets, audio mixer, footprints and generation tools. These are reusable references, not evidence of m68k bus compatibility.
+- ../solderdemon_6502-audio (formerly rosco_6502-audio) contains an existing YM2149F design, reference datasheets, audio mixer, footprints and generation tools. These are reusable references, not evidence of m68k bus compatibility.
 - ../solderdemon_m68k-busboard/solderdemon_busboard.kicad_sch uses a 2x32 connector. Its signals include A1-A23, D0-D15, CPUCLK, E, VMA, VPA, AS, LDS, UDS, RW, RESET, DTACK, IOSEL and EXPSEL. Verify complete pin numbering and connector orientation against the actual target before layout.
 - ../solderdemon_m68k/README.md describes a 10 MHz MC68010 configuration. The installed CPU, clock and hardware revision have not yet been confirmed.
 - ../solderdemon_m68k/code/pld/address_decoder/ic2_address_decoder.pld maps IOSEL to the F00000-FFFFFF I/O region and excludes CPU-space cycles. IOSEL is not qualified with AS in that equation.

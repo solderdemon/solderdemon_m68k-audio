@@ -376,7 +376,7 @@
       8.93
     ],
     "rot": 270,
-    "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+    "fp": "SolderDemonCaps:C_Radial_5.08mm",
     "uuid": "266500e7-5348-5a70-9415-cb577b0451c4"
   },
   {
@@ -396,7 +396,7 @@
       24.56
     ],
     "rot": 270,
-    "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+    "fp": "SolderDemonCaps:C_Radial_5.08mm",
     "uuid": "f97ffd98-223e-58f1-9a26-f5952b9741e2"
   },
   {
@@ -416,7 +416,7 @@
       24.56
     ],
     "rot": 270,
-    "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+    "fp": "SolderDemonCaps:C_Radial_5.08mm",
     "uuid": "f83fb389-8e27-57ce-9f95-669469a28473"
   },
   {
@@ -436,7 +436,7 @@
       38.18
     ],
     "rot": 270,
-    "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+    "fp": "SolderDemonCaps:C_Radial_5.08mm",
     "uuid": "58ae96f3-e43b-5eae-b7d8-6273924a10c9"
   },
   {
@@ -456,7 +456,7 @@
       38.18
     ],
     "rot": 270,
-    "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+    "fp": "SolderDemonCaps:C_Radial_5.08mm",
     "uuid": "3a65a580-412b-5fa3-b800-c2da2ca5139c"
   },
   {

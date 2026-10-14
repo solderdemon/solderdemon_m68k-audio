@@ -83,7 +83,7 @@ add('U1',key,'YM2149F',n,(60.96,198.12),(38.5,17.8),90)
 key=custom('OSC_5V_DIP8',[(1,'EN / NC','input'),(4,'GND','power_in')],[(8,'VCC','power_in'),(5,'OUT','output')],'Oscillator:Oscillator_DIP-8')
 add('X1',key,'1.8432 MHz / 5V / 50ppm',{1:'+5V',4:'GND',5:'CLK_RAW',8:'+5V'},(152.4,157.48),(61.5,43.24))
 R=standard('Device','R'); C=standard('Device','C'); CP=standard('Device','C_Polarized'); J=standard('Connector_Generic','Conn_01x03')
-for k,fp in [(R,'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'),(C,'Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm'),(CP,'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm'),(J,'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical')]: next(p for p in sub(symbols[k],'property') if p[1]=='Footprint')[2]=fp
+for k,fp in [(R,'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'),(C,'SolderDemonCaps:C_Radial_5.08mm'),(CP,'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm'),(J,'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical')]: next(p for p in sub(symbols[k],'property') if p[1]=='Footprint')[2]=fp
 add('R1',R,'33',{1:'CLK_RAW',2:'PSGCLK'},(190.5,152.4),(76,35.62),270)
 add('R2',R,'33',{1:'CLK_RAW',2:'LOGICCLK'},(190.5,172.72),(80.5,35.62),270)
 add('R3',R,'10k',{1:'BDIR',2:'GND'},(139.7,198.12),(85,35.62),270)
@@ -145,7 +145,7 @@ netnames=sorted({n for p in parts for n in p['nets'].values() if n});nets={}
 for i,n in enumerate(netnames,1):ni=pcb.NETINFO_ITEM(b,'/'+n,i);b.Add(ni);nets[n]=ni
 for p in parts:
     if p['ref'].startswith('#'):continue
-    lib,name=p['fp'].split(':');f=pcb.FootprintLoad(str(LIB/'footprints'/(lib+'.pretty')),name);assert f,p['fp']
+    lib,name=p['fp'].split(':');path=ROOT.parent/'tools/capacitors/SolderDemonCaps.pretty' if lib=='SolderDemonCaps' else LIB/'footprints'/(lib+'.pretty');f=pcb.FootprintLoad(str(path),name);assert f,p['fp'];f.SetFPID(pcb.LIB_ID(lib,name))
     f.SetReference(p['ref']);f.SetValue(p['value']);f.SetPath(pcb.KIID_PATH('/'+uid('root')+'/'+p['uuid']));f.SetOrientationDegrees(p['rot']);f.SetPosition(v(*p['pos']));b.Add(f)
     for pad in f.Pads():
         n=p['nets'].get(pad.GetNumber())
@@ -154,12 +154,14 @@ for p in parts:
     rx,ry=p['pos']
     if p['ref'].startswith('U'):rx+=10;ry-=3.81
     elif p['ref'].startswith('R'):rx+=3.81;ry-=2.5
-    elif p['ref'].startswith('C'):ry-=4.4
+    elif p['ref'].startswith('C') and p['ref'] not in ('C1', 'C2', 'C3', 'C4', 'C5'):ry-=4.4
     elif p['ref']=='J1':rx=5;ry=H-10
     elif p['ref']=='J2':rx=8;ry=9.7
     elif p['ref']=='J3':ry-=2.4
     elif p['ref']=='X1':rx+=3.81;ry-=4
     f.Reference().SetPosition(v(rx,ry))
+    if p['ref'] in ('C1', 'C2', 'C3', 'C4', 'C5'):
+        f.Reference().SetTextAngle(pcb.EDA_ANGLE(90 if p['rot'] % 180 else 0, pcb.DEGREES_T))
     # J1/J2 overhang the outline; move their silkscreen beyond the board edge to a drawing layer.
     if p['ref'] in ['J1','J2']:
         for g in [g for g in f.GraphicalItems() if isinstance(g,pcb.PCB_SHAPE) and g.GetLayer()==pcb.F_SilkS]:

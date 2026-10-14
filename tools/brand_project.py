@@ -102,7 +102,7 @@ def mm(x, y):
 
 
 def place_references(board):
-    """Resistor designators inside the body outline, capacitor designators right next to the body."""
+    """Put resistor and 5.08 mm ceramic capacitor designators inside their body outlines."""
     changed = False
     for footprint in board.GetFootprints():
         ref = footprint.GetReference()
@@ -119,8 +119,9 @@ def place_references(board):
         elif str(footprint.GetFPID().GetLibItemName()).startswith('CP_Radial'):
             # 6.3 mm can: C7 and C8 to the right, between the can and its bleeder; C6 above.
             x, y = (cx + 4.5, cy) if ref in ('C7', 'C8') else (cx, cy - 4.3)
-        elif a.x == b.x:
-            x, y = cx, cy - 3.4               # upright 5.0 x 2.5 mm disc: just above its outline
+        elif str(footprint.GetFPID().GetLibItemName()) == 'C_Radial_5.08mm':
+            x, y = cx, cy                     # Centre of the rectangular body outline, between the pads
+            angle = 90 if a.x == b.x else 0   # Follow the capacitor's lead axis
         else:
             x, y = cx, cy - 2.25              # 5.0 x 2.5 mm disc: just above its outline
         text = footprint.Reference()

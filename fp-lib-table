@@ -1,1 +1,4 @@
-(fp_lib_table (lib (name "SolderDemonAudio") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonAudio.pretty") (options "") (descr "Audio card footprints: SolderDemon logo")))
+(fp_lib_table (lib (name "SolderDemonAudio") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonAudio.pretty") (options "") (descr "Audio card footprints: SolderDemon logo"))
+  (lib (name "SolderDemonBrand")(type "KiCad")(uri "${KIPRJMOD}/../tools/brand/SolderDemon.pretty")(options "")(descr "SolderDemon logo, tools/brand"))
+  (lib (name "SolderDemonCaps")(type "KiCad")(uri "${KIPRJMOD}/../tools/capacitors/SolderDemonCaps.pretty")(options "")(descr "100 nF, 5.08 mm pitch"))
+)

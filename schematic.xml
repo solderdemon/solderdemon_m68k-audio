@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\savcu\OneDrive\Desktop\SolderDeonHardware\solderdemon_m68k-audio\solderdemon_m68k-audio.kicad_sch</source>
-    <date>2026-10-13T21:40:47</date>
+    <date>2026-10-14T22:44:17</date>
     <tool>Eeschema 10.0.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -26,9 +26,9 @@
   <components>
     <comp ref="C1">
       <value>100nF</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <footprint>SolderDemonCaps:C_Radial_5.08mm</footprint>
       <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Footprint">SolderDemonCaps:C_Radial_5.08mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -50,9 +50,9 @@
     </comp>
     <comp ref="C2">
       <value>100nF</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <footprint>SolderDemonCaps:C_Radial_5.08mm</footprint>
       <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Footprint">SolderDemonCaps:C_Radial_5.08mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -74,9 +74,9 @@
     </comp>
     <comp ref="C3">
       <value>100nF</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <footprint>SolderDemonCaps:C_Radial_5.08mm</footprint>
       <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Footprint">SolderDemonCaps:C_Radial_5.08mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -98,9 +98,9 @@
     </comp>
     <comp ref="C4">
       <value>100nF</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <footprint>SolderDemonCaps:C_Radial_5.08mm</footprint>
       <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Footprint">SolderDemonCaps:C_Radial_5.08mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -122,9 +122,9 @@
     </comp>
     <comp ref="C5">
       <value>100nF</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</footprint>
+      <footprint>SolderDemonCaps:C_Radial_5.08mm</footprint>
       <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm</field>
+        <field name="Footprint">SolderDemonCaps:C_Radial_5.08mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>

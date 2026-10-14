@@ -144,7 +144,7 @@ galasm code/pld/audio_sequencer.pld
 | **R8, R11** | 10 kΩ | Axial DIN0207, P7.62 mm | Channel A → Left, Channel C → Right mixer resistors. |
 | **R9, R10** | 22 kΩ | Axial DIN0207, P7.62 mm | Channel B → Left & Right center mix (−6.9 dB). |
 | **R12, R13** | 100 kΩ | Axial DIN0207, P7.62 mm | Output DC bleeder resistors. |
-| **C1–C5** | 100 nF | Disc / Ceramic, P2.5 mm | Decoupling capacitors (one per IC and oscillator). |
+| **C1–C5** | 100 nF | Radial, 5.08 mm pitch | Decoupling capacitors (one per IC and oscillator). |
 | **C6** | 47 µF / 16V | Radial D6.3 mm, P2.5 mm | Bulk electrolytic reservoir capacitor near bus power pins. |
 | **C7, C8** | 10 µF / 16V | Radial D6.3 mm, P2.5 mm | AC coupling electrolytic capacitors (+ terminal toward mixer). |
 
