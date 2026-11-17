@@ -4,7 +4,40 @@ logs/
 *-backups/
 *.kicad_prl
 ~*.lck
-code/demo/*.o
+code/software/demo/*.o
 routing.dsn
 routing.ses
 routing-swarm/
+
+# Local build products
+/code/build/*
+!/code/build/README.md
+
+# Local caches, generated software builds, and superseded releases
+__pycache__/
+*.py[cod]
+*.o
+/code/software/demo/*.bin
+/code/software/demo/*.elf
+/code/software/demo/*.map
+/code/software/demo/*.dis
+/code/software/music_demo/libs/build/
+/code/software/music_demo/*.bin
+/code/software/music_demo/*.elf
+/code/software/music_demo/*.map
+/code/software/music_demo/*.dis
+/code/software/music_demo/*.sym
+/code/software/music_demo/*-preview.wav
+/releases/
+/capacitor-*.rpt
+/review-*.rpt
+
+# Local archives and generated work products
+/production/
+/*-backups/
+/.history/
+/routing-swarm/
+
+# Compiled library artifacts
+*.a
+*.d

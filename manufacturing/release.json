@@ -1,0 +1,22 @@
+{
+  "platform": "m68k",
+  "revision": "r1",
+  "layout_correction": "2026-11-12",
+  "date": "2026-11-12",
+  "size_mm": [
+    100.0,
+    72.0
+  ],
+  "socket_gap_mm": 4.11,
+  "ERC": "0 violations",
+  "DRC": "0 violations including warnings; parity and unconnected 0",
+  "r1_hardware": "Current layout has not been physically tested",
+  "J3": "optional DNP; 1=L 2=GND 3=R",
+  "inputs": {
+    "design/solderdemon_m68k-audio.kicad_pcb": "0643826f508528edede265398241b9ad1d960e90606513d1efb619365fb2ffef",
+    "design/solderdemon_m68k-audio.kicad_sch": "4a00d6cd8b232d30cad8160a988a130127627e788f1f5b7129cc7cf5bbb8cbdd",
+    "design/solderdemon_m68k-audio.kicad_pro": "3599f47ff1f5e9ea31339d2bbfcd535bc200371c9d75a40ac7f6b1c43f204bd8",
+    "code/firmware/pld/audio_sequencer.pld": "551f755dfc2fd7b7d4a2e6fc41bea9115beccac89b0bbd9fd5aa31ec6f44cb4d",
+    "code/firmware/pld/audio_sequencer.jed": "bbc7290e9060f85c34b78ec1c79eca8b4951b8ddc3adf19d07fcc6d7826959d6"
+  }
+}

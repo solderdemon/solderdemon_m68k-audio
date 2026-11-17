@@ -91,7 +91,7 @@ if __name__ == '__main__':
     layer = sys.argv[2] if len(sys.argv) > 2 else 'F.SilkS'
     name = 'SolderDemon_Logo'
     grid = cells(ROOT / 'images' / 'solderdemon-logo.png')
-    out = ROOT / 'SolderDemonAudio.pretty' / f'{name}.kicad_mod'
+    out = ROOT / 'design' / 'SolderDemonAudio.pretty' / f'{name}.kicad_mod'
     out.parent.mkdir(exist_ok=True)
     out.write_text(footprint(name, grid, height, layer), encoding='utf-8')
     print(out, f'{len(grid[0])}x{len(grid)} cells, {len(rects(grid))} rects')

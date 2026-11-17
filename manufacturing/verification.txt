@@ -1,0 +1,9 @@
+PASS: all schematic/PCB/manifest pins; 64-pin host mapping and connector pad geometry.
+PASS: 65536 address pages (entire 24-bit space), all 64 bus-control combinations.
+PASS: JEDEC 5892 fuses, fuse checksum, transmission checksum, fitter pin mapping.
+PASS: 512 write sequences, held-request/no-retrigger, abort/reset paths.
+PASS: BC1 grounded; no hardware READ mode or PSG bus contention.
+Timing budget: setup >= 414.5 ns; strobe 1005.0..1165.1 ns; post-strobe hold >= 444.5 ns.
+Scope: source-equation logic simulation plus JEDEC integrity checks, NOT a fuse-level silicon simulator or measured hardware qualification.
+JEDEC SHA256: bbc7290e9060f85c34b78ec1c79eca8b4951b8ddc3adf19d07fcc6d7826959d6
+

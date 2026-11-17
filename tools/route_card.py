@@ -14,4 +14,4 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT.parent / 'tools'))
 import route_lib
 
-route_lib.route('solderdemon_m68k-audio', root=ROOT, corner=4.0)
+route_lib.route('solderdemon_m68k-audio', root=ROOT / 'design', corner=4.0)

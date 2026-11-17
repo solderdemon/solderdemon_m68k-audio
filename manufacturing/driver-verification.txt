@@ -1,0 +1,1 @@
+PASS: compiled 126-byte demo executed on Musashi MC68010; 40 byte MMIO writes, 20 atomic register pairs, correct C-major periods, final mute, caller registers/stack/interrupt mask restored. No physical PSG emulation or analog validation.

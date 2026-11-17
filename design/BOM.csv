@@ -1,0 +1,30 @@
+﻿Reference,Value,Footprint
+J1,M68K BUS / 2x32,SolderDemonAudio:PinSocket_2x32_P2.54mm_Horizontal_EdgeMount
+U4,CD74HCT688E,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U3,ATF22V10C-15PU,Package_DIP:DIP-24_W7.62mm_Socket_LongPads
+U2,CD74HCT273E,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U1,YM2149F,Package_DIP:DIP-40_W15.24mm_Socket_LongPads
+X1,1.8432 MHz / 5V / 50ppm,Oscillator:Oscillator_DIP-8
+R1,33,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R2,33,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R3,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R4,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+C1,100nF,SolderDemonCaps:C_Radial_5.08mm
+C2,100nF,SolderDemonCaps:C_Radial_5.08mm
+C3,100nF,SolderDemonCaps:C_Radial_5.08mm
+C4,100nF,SolderDemonCaps:C_Radial_5.08mm
+C5,100nF,SolderDemonCaps:C_Radial_5.08mm
+C6,47uF / 16V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
+R5,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R6,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R7,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R8,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R9,22k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R10,22k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R11,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+C7,10uF / 16V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
+C8,10uF / 16V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
+R12,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+R13,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+J2,SJ1-3525N / LINE OUT,SolderDemonAudio:Jack_3.5mm_CUI_SJ1-3525N_Horizontal_EdgeMount
+J3,L / GND / R,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical

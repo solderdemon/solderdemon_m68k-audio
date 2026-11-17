@@ -16,18 +16,16 @@ def run(*args):
 
 
 def main():
-    sch = ROOT / f'{NAME}.kicad_sch'
-    pcb = ROOT / f'{NAME}.kicad_pcb'
+    sch = ROOT / 'design' / f'{NAME}.kicad_sch'
+    pcb = ROOT / 'design' / f'{NAME}.kicad_pcb'
     preview = ROOT / 'preview'
     preview.mkdir(exist_ok=True)
-    run('sch', 'export', 'pdf', '-o', ROOT / f'{NAME}.pdf', sch)
-    with pymupdf.open(ROOT / f'{NAME}.pdf') as document:
+    run('sch', 'export', 'pdf', '-o', ROOT / 'design' / f'{NAME}.pdf', sch)
+    with pymupdf.open(ROOT / 'design' / f'{NAME}.pdf') as document:
         document[0].get_pixmap(matrix=pymupdf.Matrix(1.5, 1.5), alpha=False).save(
             preview / 'schematic.png')
     # Side lights only: the top and camera lights leave a specular glare on the soldermask.
     lights = ('--light-top', '0', '--light-camera', '0', '--light-side', '0.8')
-    run('pcb', 'render', '--width', '1600', '--height', '900', '--zoom', '0.9',
-        '--rotate', '-35,0,30', *lights, '-o', ROOT / f'{NAME}-3d.png', pcb)
     run('pcb', 'render', '--width', '1280', '--height', '1280', '--side', 'top',
         '--rotate', '0,0,0', *lights, '-o', preview / 'top.png', pcb)
     run('pcb', 'export', 'svg', '--mode-single', '--layers', 'F.Cu,F.SilkS,Edge.Cuts',

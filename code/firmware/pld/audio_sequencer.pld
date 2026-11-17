@@ -1,0 +1,27 @@
+GAL22V10
+AUDIO1
+
+CLK IOSEL MATCH AS LDS RW RESET A1 A16 A17 A18 GND
+A19 DTACK NREQ BDIR S6 S5 S4 S3 S2 S1 S0 VCC
+
+/NREQ = /IOSEL * /MATCH * /AS * /LDS * /RW * RESET * /A16 * /A17 * /A18 * /A19
+AR = NREQ
+S0.R = /NREQ
+S1.R = S0
+S2.R = S1
+S3.R = S2
+S4.R = S3
+S5.R = S4
+S6.R = S5
+BDIR = S3 * /S5 * /NREQ
+DTACK.T = GND
+DTACK.E = S6 * /NREQ
+
+DESCRIPTION
+SolderDemon m68k YM2149F hardware-timed write interface, r1 prototype.
+Oscillator 1.8432 MHz. S2 captures data, S3 starts BDIR, S5 stops it,
+S6 acknowledges. BC1 is grounded and BC2 is wired directly to bus A1.
+NREQ is an inverted full-select term feeding the single-product AR.
+A2-A7 are intentionally ignored: the card reserves F00100-F001FF.
+Only LDS byte writes are acknowledged. Program as ATF22V10C; disable
+power-down option. Do not program an ATF16V8 or substitute its fuse map.

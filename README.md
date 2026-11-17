@@ -1,14 +1,23 @@
-# SolderDemon m68k Audio Board
+# SolderDemon m68k Audio
 
-A SolderDemon Yamaha YM2149F programmable sound generator (PSG) expansion card for SolderDemon m68k. Compatible with the [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k) ecosystem.
+Adds three Yamaha YM2149F sound channels, noise and envelope generation, and passive stereo line output. An ATF22V10C sequencer handles bus timing for the PSG.
 
-Designed as a vertical daughterboard for the [SolderDemon m68k bus board](../solderdemon_m68k-busboard), it equips the system with three square-wave tone channels, a hardware noise generator, and an envelope generator. An onboard hardware sequencer implemented in an ATF22V10C PLD couples the fast MC68010 bus to the slow Yamaha PSG by managing strobe timing, data latching, and automatic `~DTACK` cycle termination. Audio is output through a passive ABC stereo mixer to an onboard 3.5 mm jack and a line header.
+Designed for the SolderDemon m68k and compatible with the [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k) expansion interface.
 
-![SolderDemon m68k Audio Board 3D View](solderdemon_m68k-audio-3d.png)
+**Status.** r1 fabrication files are available. The current layout has yet to be tested on a physical board.
 
----
+![Assembled SolderDemon m68k Audio board](solderdemon_m68k-audio-photo.jpg)
 
-## Highlights
+[Top view](solderdemon_m68k-audio-top.png) · [Bottom view](solderdemon_m68k-audio-bottom.png)
+
+## Start here
+
+- [KiCad project](design/solderdemon_m68k-audio.kicad_pro)
+- [Schematic (PDF)](manufacturing/solderdemon_m68k-audio-schematic.pdf)
+- [Gerbers and drill files](manufacturing/solderdemon_m68k-audio-r1-2026-11-12-gerbers.zip)
+- [Assembly and bring-up](docs/BUILD.md)
+
+## Features
 
 - **Sound Generator:** Yamaha **YM2149F** (`U1`, DIP-40): 3 tone channels (A, B, C), noise generator, and hardware envelope generator, clocked from a dedicated **1.8432 MHz 5 V oscillator** (`X1`, DIP-8).
 - **Hardware-Timed Bus Interface:** The slow PSG never sees the fast MC68010 bus cycles directly. An intermediate octal latch (**CD74HCT273E**, `U2`) captures bus data (`D0`–`D7`), while an **ATF22V10C-15PU** PLD (`U3`) sequences `BDIR` strobes and asserts `~DTACK` when the write cycle finishes.
@@ -17,7 +26,7 @@ Designed as a vertical daughterboard for the [SolderDemon m68k bus board](../sol
 - **Bus Safety:** `BC1` is tied to GND and the hardware only accepts write cycles. Read cycles and PSG GPIO directions are physically excluded, eliminating any possibility of bus contention.
 - **Passive ABC Stereo:** 1 kΩ channel loads and a resistive mixer: Channel A to left, Channel C to right, Channel B centered in both channels at −6.9 dB, followed by 10 µF AC coupling (`C7`/`C8`) and 100 kΩ DC bleeders.
 - **Dual Outputs:** Front/side 3.5 mm TRS stereo jack **CUI SJ1-3525N** (`J2`) and an internal 1×3 vertical header (`J3`: L / GND / R) for case or mixer wiring.
-- **Busboard Form Factor:** 100 × 69 mm 2-layer PCB with R4 mm corners. Plugs vertically into any 2×32 Eurocard bus slot (`J1`).
+- **Busboard Form Factor:** 100 × 72 mm 2-layer PCB with R4 mm corners. Plugs vertically into any 2×32 Eurocard bus slot (`J1`).
 - **100% Through-Hole (THT):** All ICs socketed in standard DIP packages, axial/radial passive components for straightforward DIY assembly.
 
 ---
@@ -117,11 +126,11 @@ psg_silence:
 
 ```sh
 # Assemble the test demo with m68k-elf toolchain
-m68k-elf-gcc -m68000 -nostdlib -T code/demo/demo.ld code/demo/demo.s -o code/demo/demo.elf
-m68k-elf-objcopy -O binary code/demo/demo.elf code/demo/demo.bin
+m68k-elf-gcc -m68000 -nostdlib -T code/software/demo/demo.ld code/software/demo/demo.s -o code/software/demo/demo.elf
+m68k-elf-objcopy -O binary code/software/demo/demo.elf code/software/demo/demo.bin
 
 # Compile PLD equations
-galasm code/pld/audio_sequencer.pld
+galasm code/firmware/pld/audio_sequencer.pld
 ```
 
 ---
@@ -174,7 +183,7 @@ BDIR:     ________________________________|~~~~~~~~~~~~~~~~~~~~~~~|___________
 
 ## PLD Firmware (U3)
 
-The write sequencer logic is defined in [`code/pld/audio_sequencer.pld`](code/pld/audio_sequencer.pld) (GALasm) and pre-assembled into `code/pld/audio_sequencer.jed`:
+The write sequencer logic is defined in [`code/firmware/pld/audio_sequencer.pld`](code/firmware/pld/audio_sequencer.pld) (GALasm) and pre-assembled into `code/firmware/pld/audio_sequencer.jed`:
 
 ```text
 /NREQ = /IOSEL * /MATCH * /AS * /LDS * /RW * RESET * /A16 * /A17 * /A18 * /A19
@@ -196,8 +205,8 @@ DTACK.E = S6 * /NREQ
 Flash the `.jed` file using an EEPROM/PLD programmer (such as the Minipro TL866II+ / T48):
 
 ```sh
-galasm code/pld/audio_sequencer.pld
-minipro -p ATF22V10C -w code/pld/audio_sequencer.jed
+galasm code/firmware/pld/audio_sequencer.pld
+minipro -p ATF22V10C -w code/firmware/pld/audio_sequencer.jed
 ```
 
 > [!IMPORTANT]
@@ -218,18 +227,26 @@ minipro -p ATF22V10C -w code/pld/audio_sequencer.jed
    - Power off, install `U4` (74HCT688), `U2` (74HCT273), and `U1` (YM2149F).
    - Connect active/powered speakers or an amplifier line input to `J2` (3.5 mm jack). **Do not connect passive speakers or low-impedance headphones directly** (this is a line-level output).
 4. **Running the Demo:**
-   - Load `code/demo/demo.bin` into memory at `0x00040000` via the SolderDemon m68k serial bootloader.
+   - Load `code/software/demo/demo.bin` into memory at `0x00040000` via the SolderDemon m68k serial bootloader.
    - Execute the code. You should hear a clear C-major triad played across channels A, B, and C for approximately 1 second, followed by clean silence.
    - Verify with an oscilloscope that `BDIR` (`U1` pin 27) and `~DTACK` (`U3` pin 14) pulse during each register access.
 
 ---
 
-## Manufacturing & Hardware Files
+<!-- music-demo -->
+## Musical demo: Korobeiniki (Tetris theme)
 
-- **KiCad Project:** `solderdemon_m68k-audio.kicad_pro`, `solderdemon_m68k-audio.kicad_sch`, `solderdemon_m68k-audio.kicad_pcb` (KiCad 8/9/10 format)
+[`code/software/music_demo`](code/software/music_demo/README.md) contains a 30-second original
+chiptune arrangement of the traditional Korobeiniki melody, familiar from Tetris.
+It builds from solo to bass, arpeggios, stereo voice swap, and noise percussion.
+Build with `rosco build --docker`; instructions and a WAV preview are included.
+
+## Design files
+
+- **KiCad Project:** `design/solderdemon_m68k-audio.kicad_pro`, `design/solderdemon_m68k-audio.kicad_sch`, `design/solderdemon_m68k-audio.kicad_pcb` (KiCad 8/9/10 format)
 - **Symbol Library:** `SolderDemonAudio.kicad_sym`
 - **Schematic PDF:** [`solderdemon_m68k-audio.pdf`](solderdemon_m68k-audio.pdf)
-- **Bill of Materials:** [`BOM.csv`](BOM.csv)
+- **Bill of Materials:** [`BOM.csv`](design/BOM.csv)
 - **Automated Verification:**
   - `python tools/verify_design.py`: Full pin connectivity, 65,536 address pages, JEDEC fuse validation.
   - `tools/verify_demo.c`: Musashi MC68010 execution test validating 40 atomic MMIO writes and register preservation.
@@ -245,7 +262,23 @@ minipro -p ATF22V10C -w code/pld/audio_sequencer.jed
 
 ---
 
-## License
+<!-- repository-layout -->
+## Repository layout
 
-- **Hardware:** CERN Open Hardware Licence Version 2 — Strongly Reciprocal ([CERN-OHL-S v2](LICENCE.hardware.txt)).
-- **Code** (sequencer PLD, driver, demo, verification tools): [MIT License](LICENSE.code).
+- [`design/`](design/solderdemon_m68k-audio.kicad_pro): KiCad project, schematic sheets, PCB, local libraries and design data. Open the project directly here.
+- [`code/firmware/`](code/firmware/): ROM and programmable-logic sources and programming files.
+- [`code/software/`](code/software/): drivers, examples and applications.
+- [`code/build/`](code/build/): local build products; ignored by Git except for its README.
+- [`tools/`](tools/): generators, simulations and export scripts. Run commands from the repository root unless stated otherwise.
+- [`manufacturing/`](manufacturing/): fabrication packages.
+
+Programmable-logic files are in `code/firmware/pld/`. Native CPLD tools retain their adjacent `bin/` outputs.
+Design files and documentation are generated by scripts in `tools/`; change the sources and regenerate. Keep `.kicad_pro` as the source of DRC rules. The KiCad project includes the custom footprints required to inspect the board independently. Full regeneration and routing additionally require the shared workspace tools; see [the build guide](docs/BUILD.md).
+<!-- /repository-layout -->
+
+## Licences and attribution
+
+- **Hardware:** [CERN Open Hardware Licence v1.2](LICENCE.hardware.txt).
+- **Code:** [MIT](LICENSE.code), covering the sequencer PLD, driver, demos and verification tools.
+
+Copyright © 2026 SolderDemon. Retained third-party notices identify their respective sources.

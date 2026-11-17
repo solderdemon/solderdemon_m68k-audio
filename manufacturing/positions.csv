@@ -1,0 +1,29 @@
+Ref,Val,Package,PosX,PosY,Rot,Side
+"C1","100nF","C_Radial_5.08mm",34.135000,-9.085000,-90.000000,top
+"C2","100nF","C_Radial_5.08mm",59.535000,-28.585000,-90.000000,top
+"C3","100nF","C_Radial_5.08mm",22.635000,-28.585000,-90.000000,top
+"C4","100nF","C_Radial_5.08mm",22.135000,-46.085000,-90.000000,top
+"C5","100nF","C_Radial_5.08mm",55.135000,-42.085000,-90.000000,top
+"C6","47uF / 16V","CP_Radial_D6.3mm_P2.50mm",92.192500,-28.947500,0.000000,top
+"C7","10uF / 16V","CP_Radial_D6.3mm_P2.50mm",5.192500,-30.447500,0.000000,top
+"C8","10uF / 16V","CP_Radial_D6.3mm_P2.50mm",5.192500,-41.447500,0.000000,top
+"J1","M68K BUS / 2x32","PinSocket_2x32_P2.54mm_Horizontal_EdgeMount",10.630000,-61.540000,90.000000,top
+"J3","L / GND / R","PinHeader_1x03_P2.54mm_Vertical",18.815000,-34.815000,0.000000,top
+"R1","33","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",77.545000,-46.715000,90.000000,top
+"R2","33","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",82.045000,-46.715000,90.000000,top
+"R3","10k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",86.545000,-46.715000,90.000000,top
+"R4","10k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",91.045000,-46.715000,90.000000,top
+"R5","1k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",22.095000,-57.545000,0.000000,top
+"R6","1k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",34.095000,-57.545000,0.000000,top
+"R7","1k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",46.095000,-57.545000,0.000000,top
+"R8","10k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",22.095000,-52.545000,0.000000,top
+"R9","22k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",34.095000,-52.545000,0.000000,top
+"R10","22k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",46.095000,-52.545000,0.000000,top
+"R11","10k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",58.095000,-53.545000,0.000000,top
+"R12","100k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",13.545000,-35.715000,90.000000,top
+"R13","100k","R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",13.545000,-46.715000,90.000000,top
+"U1","YM2149F","DIP-40_W15.24mm_Socket_LongPads",38.635000,-18.815000,90.000000,top
+"U2","CD74HCT273E","DIP-20_W7.62mm_Socket_LongPads",63.625000,-33.685000,90.000000,top
+"U3","ATF22V10C-15PU","DIP-24_W7.62mm_Socket_LongPads",26.625000,-33.685000,90.000000,top
+"U4","CD74HCT688E","DIP-20_W7.62mm_Socket_LongPads",26.625000,-47.185000,90.000000,top
+"X1","1.8432 MHz / 5V / 50ppm","Oscillator_DIP-8",61.835000,-48.455000,0.000000,top

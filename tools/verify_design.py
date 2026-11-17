@@ -2,9 +2,9 @@ from pathlib import Path
 import json,re,xml.etree.ElementTree as ET,itertools,hashlib
 import pcbnew as pcb
 root=Path(__file__).resolve().parents[1]
-parts={a['ref']:a for a in json.loads((root/'design.json').read_text())}
-b=pcb.LoadBoard(str(root/'solderdemon_m68k-audio.kicad_pcb'))
-sch=ET.parse(root/'schematic.xml');nets={(n.get('ref'),n.get('pin')):x.get('name') for x in sch.findall('./nets/net') for n in x.findall('node')}
+parts={a['ref']:a for a in json.loads((root / 'design' / 'design.json').read_text())}
+b=pcb.LoadBoard(str(root / 'design' / 'solderdemon_m68k-audio.kicad_pcb'))
+sch=ET.parse(root / 'design' / 'schematic.xml');nets={(n.get('ref'),n.get('pin')):x.get('name') for x in sch.findall('./nets/net') for n in x.findall('node')}
 for ref,a in parts.items():
  if ref.startswith('#'):continue
  f=next(f for f in b.GetFootprints() if f.GetReference()==ref)
@@ -15,7 +15,7 @@ for ref,a in parts.items():
    assert actual==net if net else actual.startswith('unconnected-') or not actual,(ref,pin,net,actual)
   if net:assert nets[(ref,pin)].removeprefix('/')==net,(ref,pin)
 # External reference netlist is independent of card manifest.
-refnet=ET.parse(root/'bus-reference.xml')
+refnet=ET.parse(root / 'design' / 'bus-reference.xml')
 host={int(n.get('pin')):x.get('name') for x in refnet.findall('./nets/net') for n in x.findall('node') if n.get('ref')=='BUS5-1'}
 for pin,net in parts['J1']['nets'].items():
  if net:assert ('VCC' if net=='+5V' else net)==host[int(pin)]
@@ -34,7 +34,7 @@ assert [parts['U2']['nets'][str(i)] for i in [2,5,6,9,12,15,16,19]]==['PSGD'+str
 assert parts['U2']['nets']['11']=='CAPTURE' and parts['U3']['nets']['21']=='CAPTURE'
 assert parts['U3']['nets']['14']=='DTACK'
 # Parse the actual GALasm source. No hand-copied model of its equations.
-src=(root/'code/pld/audio_sequencer.pld').read_text().split('DESCRIPTION')[0]
+src=(root/'code/firmware/pld/audio_sequencer.pld').read_text().split('DESCRIPTION')[0]
 eq={lhs.strip():rhs.strip() for lhs,rhs in re.findall(r'^([/A-Z0-9.]+)\s*=\s*([^\n]+)',src,re.M)}
 def expr(s,v):
  return any(all((not v[t[1:]]) if t.startswith('/') else bool(v[t]) for t in term.strip().split()) for term in s.replace('*',' ').split('+'))
@@ -49,14 +49,14 @@ for ios,match,as_,lds,rw,rst in itertools.product([0,1],repeat=6):
  v={'IOSEL':ios,'MATCH':match,'AS':as_,'LDS':lds,'RW':rw,'RESET':rst,**{'A'+str(i):0 for i in range(16,20)}}
  assert (not request(v))==(not(ios or match or as_ or lds or rw) and bool(rst))
 # JEDEC checksums, device size and fitter pin allocation.
-j=(root/'code/pld/audio_sequencer.jed').read_bytes();txt=j.decode('ascii');count=int(re.search(r'\*QF(\d+)',txt)[1]);assert count==5892
+j=(root/'code/firmware/pld/audio_sequencer.jed').read_bytes();txt=j.decode('ascii');count=int(re.search(r'\*QF(\d+)',txt)[1]);assert count==5892
 fuses=[int(re.search(r'\*F([01])',txt)[1])]*count
 for start,bits in re.findall(r'\*L(\d+)\s+([01]+)',txt):fuses[int(start):int(start)+len(bits)]=map(int,bits)
 packed=[sum(v<<(k%8) for k,v in enumerate(fuses[i:i+8])) for i in range(0,count,8)]
 assert sum(packed)&65535==int(re.search(r'\*C([0-9A-Fa-f]{4})',txt)[1],16)
 end=j.index(b'\x03');assert sum(j[j.index(b'\x02'):end+1])&65535==int(j[end+1:].strip(),16)
 assert eq['DTACK.T']=='GND' and eq['DTACK.E']=='S6 * /NREQ'
-pintext=(root/'code/pld/audio_sequencer.pin').read_text()
+pintext=(root/'code/firmware/pld/audio_sequencer.pin').read_text()
 for pin,name in [(14,'DTACK'),(15,'NREQ'),(16,'BDIR'),(21,'S2')]:assert re.search(rf'\b{pin}\s*\|\s*{name}\s*\|',pintext)
 # All valid PSG register/data values; held request must produce exactly one strobe.
 transactions=0

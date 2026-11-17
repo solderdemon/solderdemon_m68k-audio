@@ -26,14 +26,6 @@ CHANGES = {
             "computer and its expansion bus.",
         ),
         (
-            "![rosco_m68k Audio Board 3D View]",
-            "![SolderDemon m68k Audio Board 3D View]",
-        ),
-        (
-            "(rosco_m68k-audio-3d.png)",
-            "(solderdemon_m68k-audio-3d.png)",
-        ),
-        (
             "`rosco_m68k-audio.kicad_pro`, `rosco_m68k-audio.kicad_sch`, "
             "`rosco_m68k-audio.kicad_pcb`",
             "`solderdemon_m68k-audio.kicad_pro`, `solderdemon_m68k-audio.kicad_sch`, "

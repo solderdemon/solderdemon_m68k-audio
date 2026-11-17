@@ -1,10 +1,12 @@
 from pathlib import Path
-import re, uuid, json, csv, shutil, math
+import re, uuid, json, csv, shutil, math, os, sys, subprocess
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
+import audio_mechanics as mech
 import pcbnew as pcb
 ROOT=Path(__file__).resolve().parents[1]
-LIB=Path('C:/Program Files/KiCad/10.0/share/kicad')
+LIB=Path(os.environ.get('KICAD_SHARE', '/usr/share/kicad' if os.name != 'nt' else 'C:/Program Files/KiCad/10.0/share/kicad'))
 NAME='solderdemon_m68k-audio'
-W,H=100,69  # card outline in mm; J1 sits on the bottom (bus) edge
+W,H=mech.WIDTH,mech.HEIGHT  # card outline in mm; J1 sits on the bottom (bus) edge
 RT,RB=4,4  # corner radii: top corners, bus-edge corners (all four the same)
 def uid(s): return str(uuid.uuid5(uuid.NAMESPACE_URL,'rosco-m68k-audio-r1/'+s))
 def q(s): return json.dumps(str(s),ensure_ascii=False)
@@ -55,7 +57,7 @@ def add(ref,key,value,nets,xy,pos,rot=0):
 
 # Netlist exported from the local m68k backplane, not inferred from connector names.
 import xml.etree.ElementTree as ET
-r=ET.parse(ROOT/'bus-reference.xml')
+r=ET.parse(ROOT / 'design' / 'bus-reference.xml')
 bus_all={int(n.attrib['pin']):x.attrib['name'] for x in r.findall('./nets/net') for n in x.findall('node') if n.attrib['ref']=='BUS5-1'}
 used=['A1']+['A'+str(i) for i in range(8,20)]+['D'+str(i) for i in range(8)]+['AS','LDS','RW','RESET','DTACK','IOSEL','VCC','GND']
 bus={i: ('+5V' if n=='VCC' else n) if n in used else None for i,n in bus_all.items()}
@@ -77,7 +79,7 @@ dp=[3,4,7,8,13,14,17,18];qp=[2,5,6,9,12,15,16,19]
 key=custom('CD74HCT273',[(dp[i],'D'+str(i),'input') for i in range(8)]+[(11,'CP','input'),(1,'~{MR}','input'),(10,'GND','power_in')],[(qp[i],'Q'+str(i),'output') for i in range(8)]+[(20,'VCC','power_in')],'Package_DIP:DIP-20_W7.62mm_Socket_LongPads')
 n={dp[i]:'D'+str(i) for i in range(8)};n.update({qp[i]:'PSGD'+str(i) for i in range(8)});n.update({1:'RESET',11:'CAPTURE',10:'GND',20:'+5V'})
 add('U2',key,'CD74HCT273E',n,(340.36,66.04),(63.9,29.62),90)
-key=standard('Audio','YM2149'); n={1:'GND',3:'CH_A',4:'CH_B',22:'PSGCLK',23:'RESET',24:'GND',25:'+5V',26:'+5V',27:'BDIR',28:'A1',29:'GND',40:'+5V',38:'CH_C'}
+key=standard('Audio','YM2149'); next(p for p in sub(symbols[key],'property') if p[1]=='Footprint')[2]='Package_DIP:DIP-40_W15.24mm_Socket_LongPads'; n={1:'GND',3:'CH_A',4:'CH_B',22:'PSGCLK',23:'RESET',24:'GND',25:'+5V',26:'+5V',27:'BDIR',28:'A1',29:'GND',40:'+5V',38:'CH_C'}
 n.update({37-i:'PSGD'+str(i) for i in range(8)});n.update({i:None for i in list(range(6,22))+[2,5,39]})
 add('U1',key,'YM2149F',n,(60.96,198.12),(38.5,17.8),90)
 key=custom('OSC_5V_DIP8',[(1,'EN / NC','input'),(4,'GND','power_in')],[(8,'VCC','power_in'),(5,'OUT','output')],'Oscillator:Oscillator_DIP-8')
@@ -106,6 +108,10 @@ for p in parts:
     if p['ref'] in ['R12','R13']:p['rot']=270
 flag=standard('power','PWR_FLAG');add('#FLG01',flag,'PWR_FLAG',{1:'+5V'},(25.4,254),(0,0));add('#FLG02',flag,'PWR_FLAG',{1:'GND'},(25.4,271.78),(0,0))
 
+for part in parts:
+    if part['ref'] in ('J1', 'J2'):
+        part['fp'] = 'SolderDemonAudio:' + part['fp'].split(':')[1] + '_EdgeMount'
+
 # Restore stock symbol cache to match installed libraries, keep per-instance footprints.
 for k in list(symbols):
     if not k.startswith('SolderDemonAudio:'):
@@ -132,24 +138,34 @@ for p in parts:
             just='right bottom' if ang==0 else 'left bottom'
             elements.append(f'(label {q(net)} (at {ex} {ey} 0) (effects (font (size 1 1)) (justify {just})) (uuid {uid(p["ref"]+"l"+num)}))')
 for text,x,y in [('M68K SYSTEM BUS',20,19),('A8..A15 = 01h',115,19),('HARDWARE WRITE SEQUENCER',208,19),('LATCHED PSG DATA',315,19),('YM2149F / BC1 FIXED LOW',23,140),('INDEPENDENT CLOCK',122,140),('ABC STEREO / LINE LEVEL',227,140),('SUPPLY / 5V +/-5%',20,239),('F00101: register address; F00103: data. Byte writes only. A2..A7 mirrored.',110,108),('U3 requires audio_sequencer.jed. Shared DTACK is LOW or high impedance.',110,115),('U1: 100 = address, 110 = write, 000/010 = inactive. Read mode impossible.',110,122),('C7/C8 positive terminal toward mixer. Load >=10k; powered speakers / amplifier.',218,245)]:elements.append(f'(text {q(text)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid {uid(text)}))')
-content=f'(kicad_sch (version 20250114) (generator "solderdemon_audio") (uuid {uid("root")}) (paper "A3") (title_block (title "SolderDemon m68k Audio / YM2149F") (date "2026-09-29") (rev "r1-prototype") (company "SolderDemon") (comment 1 "Copyright (c) 2026 SolderDemon, CERN OHL v1.2")) (lib_symbols '+''.join(dump(s) for s in symbols.values())+')'+''.join(elements)+'(sheet_instances (path "/" (page "1"))))'
-(ROOT/(NAME+'.kicad_sch')).write_text(content,encoding='utf-8')
+content=f'(kicad_sch (version 20250114) (generator "solderdemon_audio") (uuid {uid("root")}) (paper "A3") (title_block (title "SolderDemon m68k Audio / YM2149F") (date "2026-11-12") (rev "r1") (company "SolderDemon") (comment 1 "Copyright (c) 2026 SolderDemon")) (lib_symbols '+''.join(dump(s) for s in symbols.values())+')'+''.join(elements)+'(sheet_instances (path "/" (page "1"))))'
+(ROOT / 'design' / (NAME+'.kicad_sch')).write_text(content,encoding='utf-8')
 import copy
 local=[]
 for k,s in symbols.items():
     if k.startswith('SolderDemonAudio:'):t=copy.deepcopy(s);t[1]=k.split(':')[1];local.append(t)
-(ROOT/'SolderDemonAudio.kicad_sym').write_text('(kicad_symbol_lib (version 20241209) (generator "solderdemon_audio")'+''.join(dump(s) for s in local)+')',encoding='utf-8')
-(ROOT/'sym-lib-table').write_text('(sym_lib_table (lib (name "SolderDemonAudio") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonAudio.kicad_sym") (options "") (descr "Audio card symbols")))')
+(ROOT / 'design' / 'SolderDemonAudio.kicad_sym').write_text('(kicad_symbol_lib (version 20241209) (generator "solderdemon_audio")'+''.join(dump(s) for s in local)+')',encoding='utf-8')
+(ROOT / 'design' / 'sym-lib-table').write_text('(sym_lib_table (lib (name "SolderDemonAudio") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonAudio.kicad_sym") (options "") (descr "Audio card symbols")))')
 b=pcb.BOARD();b.SetCopperLayerCount(2);v=lambda x,y:pcb.VECTOR2I(pcb.FromMM(x),pcb.FromMM(y))
 netnames=sorted({n for p in parts for n in p['nets'].values() if n});nets={}
 for i,n in enumerate(netnames,1):ni=pcb.NETINFO_ITEM(b,'/'+n,i);b.Add(ni);nets[n]=ni
 for p in parts:
     if p['ref'].startswith('#'):continue
-    lib,name=p['fp'].split(':');path=ROOT.parent/'tools/capacitors/SolderDemonCaps.pretty' if lib=='SolderDemonCaps' else LIB/'footprints'/(lib+'.pretty');f=pcb.FootprintLoad(str(path),name);assert f,p['fp'];f.SetFPID(pcb.LIB_ID(lib,name))
+    lib,name=p['fp'].split(':');
+    if p['ref'] in ('J1','J2'):
+        lib = 'Connector_Audio' if p['ref']=='J2' else 'Connector_PinSocket_2.54mm'
+        name = name.removesuffix('_EdgeMount')
+    path=ROOT.parent/'tools/capacitors/SolderDemonCaps.pretty' if lib=='SolderDemonCaps' else LIB/'footprints'/(lib+'.pretty');f=pcb.FootprintLoad(str(path),name);assert f,p['fp'];f.SetFPID(pcb.LIB_ID(lib,name))
     f.SetReference(p['ref']);f.SetValue(p['value']);f.SetPath(pcb.KIID_PATH('/'+uid('root')+'/'+p['uuid']));f.SetOrientationDegrees(p['rot']);f.SetPosition(v(*p['pos']));b.Add(f)
     for pad in f.Pads():
         n=p['nets'].get(pad.GetNumber())
         if n:pad.SetNet(nets[n])
+    if p['ref'] in mech.layout('m68k'):
+        x,y,rot=mech.layout('m68k')[p['ref']]
+        f.SetOrientationDegrees(rot); f.SetPosition(v(0,0))
+        bb=f.GetCourtyard(pcb.F_CrtYd).BBox()
+        f.SetPosition(v(x-pcb.ToMM(bb.GetLeft()),y-pcb.ToMM(bb.GetTop())))
+        p['pos']=list(map(pcb.ToMM,(f.GetPosition().x,f.GetPosition().y))); p['rot']=rot
     f.Value().SetVisible(False);f.Reference().SetTextSize(v(1,1));f.Reference().SetTextThickness(pcb.FromMM(.15));f.Reference().SetTextAngle(pcb.EDA_ANGLE(0,pcb.DEGREES_T))
     rx,ry=p['pos']
     if p['ref'].startswith('U'):rx+=10;ry-=3.81
@@ -166,6 +182,25 @@ for p in parts:
     if p['ref'] in ['J1','J2']:
         for g in [g for g in f.GraphicalItems() if isinstance(g,pcb.PCB_SHAPE) and g.GetLayer()==pcb.F_SilkS]:
             if any(not(.25<=pcb.ToMM(c)<=lim-.25) for pt in (g.GetStart(),g.GetEnd()) for c,lim in ((pt.x,W),(pt.y,H))):g.SetLayer(pcb.Dwgs_User)
+    if p['ref']=='J3': f.Reference().SetVisible(False)
+    if p['ref'].startswith('U') or p['ref']=='X1':
+        bb=f.GetCourtyard(pcb.F_CrtYd).BBox(); f.Reference().SetPosition(bb.GetCenter())
+    if p['ref'].startswith('R') or p['ref'] in ('C1','C2','C3','C4','C5'):
+        pads=list(f.Pads()); f.Reference().SetPosition(pcb.VECTOR2I((pads[0].GetPosition().x+pads[1].GetPosition().x)//2,(pads[0].GetPosition().y+pads[1].GetPosition().y)//2))
+        f.Reference().SetTextAngleDegrees(90 if p['rot']%180 else 0)
+    if p['ref'] in ('C7','C8'):
+        f.Reference().SetPosition(v(10.9,31 if p['ref']=='C7' else 42)); f.Reference().SetTextSize(v(.8,.8)); f.Reference().SetTextAngleDegrees(90)
+    if p['ref'] in ('J1','J2'):
+        localname=p['fp'].split(':')[1]
+        f.SetFPID(pcb.LIB_ID('SolderDemonAudio',localname))
+        pcb.FootprintSave(str(ROOT / 'design' / 'SolderDemonAudio.pretty'),f)
+# Mechanical gate before routing. Courtyards include sockets, not just bare IC bodies.
+footprints=list(b.GetFootprints())
+for i,f in enumerate(footprints):
+    a=f.GetCourtyard(pcb.F_CrtYd).BBox()
+    for other in footprints[i+1:]:
+        c=other.GetCourtyard(pcb.F_CrtYd).BBox()
+        assert not (a.GetLeft()<c.GetRight() and c.GetLeft()<a.GetRight() and a.GetTop()<c.GetBottom() and c.GetTop()<a.GetBottom()), (f.GetReference(),other.GetReference())
 # W x H outline: RT corners away from the bus, RB at the bus edge.
 # J1 socket body overhangs the bottom edge; J2 closes the left edge with its own cutout.
 def edge(shape,*pts):
@@ -180,23 +215,28 @@ for (sx,sy),(cx,cy),(ex,ey) in [((W-RT,0),(W-RT,RT),(W,RT)),((W,H-RB),(W-RB,H-RB
     mx=cx+(sx+ex-2*cx)*h;my=cy+(sy+ey-2*cy)*h
     edge(pcb.SHAPE_T_ARC,(sx,sy),(mx,my),(ex,ey))
 # The product name and logo are added by brand_project.py.
-for text,x,y,size in [('LINE OUT',6.5,25,1)]:
+for text,x,y,size in [('LINE OUT',6.5,25,1),('L',22.3,34.815,0.8),('GND',22.3,37.355,0.8),('R',22.3,39.895,0.8)]:
     t=pcb.PCB_TEXT(b);t.SetText(text);t.SetPosition(v(x,y));t.SetTextSize(v(size,size));t.SetTextThickness(pcb.FromMM(.15));t.SetLayer(pcb.F_SilkS);b.Add(t)
 # Revision mark in copper under the mask, the same 2.5 mm stroke text as on solderdemon_6502. The GND pour
 # knocks a text out by its bounding box, so the letters go in as polygons and the pour follows their outline.
 # Placed before routing so the router keeps clear.
-t=pcb.PCB_TEXT(b);t.SetText('r1');t.SetPosition(v(88,50.5));t.SetTextSize(v(2.5,2.5));t.SetTextThickness(pcb.FromMM(.6));t.SetLayer(pcb.F_Cu)
+t=pcb.PCB_TEXT(b);t.SetText(mech.REV);t.SetPosition(v(88,50.5));t.SetTextSize(v(2.5,2.5));t.SetTextThickness(pcb.FromMM(.6));t.SetLayer(pcb.F_Cu)
 glyphs=pcb.SHAPE_POLY_SET();t.TransformTextToPolySet(glyphs,0,pcb.FromMM(.005),pcb.ERROR_INSIDE);glyphs.Simplify()
 for i in range(glyphs.OutlineCount()):  # stroke glyphs of 'r1' have no holes
     o=glyphs.Outline(i);g=pcb.PCB_SHAPE(b,pcb.SHAPE_T_POLY);g.SetPolyPoints(pcb.VECTOR_VECTOR2I([o.CPoint(k) for k in range(o.PointCount())]))
     g.SetFilled(True);g.SetWidth(0);g.SetLayer(pcb.F_Cu);b.Add(g)
 settings=b.GetDesignSettings();settings.m_MinClearance=pcb.FromMM(.2);settings.m_TrackMinWidth=pcb.FromMM(.25);settings.m_ViasMinSize=pcb.FromMM(.65);settings.m_MinThroughDrill=pcb.FromMM(.3)
 # SaveBoard writes the settings of this fresh board into .kicad_pro/.kicad_prl; the DRC rules live there.
-kept={f:f.read_bytes() for f in (ROOT/(NAME+'.kicad_pro'),ROOT/(NAME+'.kicad_prl')) if f.exists()}
-pcb.SaveBoard(str(ROOT/'tmp'/'placement.kicad_pcb'),b);pcb.SaveBoard(str(ROOT/(NAME+'.kicad_pcb')),b);pcb.ExportSpecctraDSN(b,str(ROOT/'routing.dsn'))
+removed_labels=mech.finish_labels(b, pcb)
+kept={f:f.read_bytes() for f in (ROOT / 'design' / (NAME+'.kicad_pro'),ROOT / 'design' / (NAME+'.kicad_prl')) if f.exists()}
+(ROOT/'design/tmp').mkdir(parents=True, exist_ok=True)
+pcb.SaveBoard(str(ROOT/'design/tmp'/'placement.kicad_pcb'),b);pcb.SaveBoard(str(ROOT / 'design' / (NAME+'.kicad_pcb')),b);pcb.ExportSpecctraDSN(b,str(ROOT / 'design' / 'routing.dsn'))
 for f,data in kept.items():f.write_bytes(data)
-dsn=(ROOT/'routing.dsn').read_text();dsn=dsn.replace('(width 200)','(width 250)').replace('600:300_um','650:300_um').replace('(circle F.Cu 600)','(circle F.Cu 650)').replace('(circle B.Cu 600)','(circle B.Cu 650)');(ROOT/'routing.dsn').write_text(dsn)
-(ROOT/'design.json').write_text(json.dumps(parts,indent=2),encoding='utf-8')
-with (ROOT/'BOM.csv').open('w',newline='',encoding='utf-8-sig') as out:
+dsn=(ROOT / 'design' / 'routing.dsn').read_text();dsn=dsn.replace('(width 200)','(width 250)').replace('600:300_um','650:300_um').replace('(circle F.Cu 600)','(circle F.Cu 650)').replace('(circle B.Cu 600)','(circle B.Cu 650)');(ROOT / 'design' / 'routing.dsn').write_text(dsn)
+(ROOT / 'design' / 'design.json').write_text(json.dumps(parts,indent=2),encoding='utf-8')
+with (ROOT / 'design' / 'BOM.csv').open('w',newline='',encoding='utf-8-sig') as out:
     w=csv.writer(out);w.writerow(['Reference','Value','Footprint']);w.writerows((p['ref'],p['value'],p['fp']) for p in parts if not p['ref'].startswith('#'))
 print('Generated',len(parts),'symbols;',len(netnames),'nets;',f'{W}x{H} mm')
+
+subprocess.run([os.environ.get('KICAD_CLI','kicad-cli'), 'sch','export','netlist','--format','kicadxml','-o',str(ROOT / 'design' / 'schematic.xml'),str(ROOT / 'design' / (NAME+'.kicad_sch'))],check=True)
+subprocess.run([sys.executable,str(ROOT/'tools/sync_metadata.py')],check=True)

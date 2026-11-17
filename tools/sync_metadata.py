@@ -1,9 +1,9 @@
 from pathlib import Path
 import pcbnew as p, xml.etree.ElementTree as ET, json
 root=Path(__file__).resolve().parents[1]
-b=p.LoadBoard(str(root/'solderdemon_m68k-audio.kicad_pcb'))
-parts={a['ref']:a for a in json.loads((root/'design.json').read_text())}
-x=ET.parse(root/'schematic.xml');pininfo={}
+b=p.LoadBoard(str(root / 'design' / 'solderdemon_m68k-audio.kicad_pcb'))
+parts={a['ref']:a for a in json.loads((root / 'design' / 'design.json').read_text())}
+x=ET.parse(root / 'design' / 'schematic.xml');pininfo={}
 for n in x.findall('./nets/net'):
     for a in n.findall('node'):pininfo[(a.get('ref'),a.get('pin'))]=(n.get('name'),a.get('pinfunction'),a.get('pintype'))
 for f in b.GetFootprints():
@@ -21,6 +21,6 @@ for f in b.GetFootprints():
         if func:pad.SetPinFunction(func)
         if typ:pad.SetPinType(typ)
 p.ZONE_FILLER(b).Fill(b.Zones())
-p.SaveBoard(str(root/'solderdemon_m68k-audio.kicad_pcb'),b)
+p.SaveBoard(str(root / 'design' / 'solderdemon_m68k-audio.kicad_pcb'),b)
 print('Synchronized library IDs and native no-connect nets.')
 

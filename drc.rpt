@@ -1,14 +1,8 @@
 ** Drc report for solderdemon_m68k-audio.kicad_pcb **
-** Created on 2026-10-14T22:44:27 **
+** Created on 2026-11-12T14:47:43 **
 ** Report includes: Errors, Warnings **
 
-** Found 2 DRC violations **
-[lib_footprint_mismatch]: Footprint 'Jack_3.5mm_CUI_SJ1-3525N_Horizontal' does not match copy in library 'Connector_Audio'
-    Local override; warning
-    @(4.5000 mm, 17.0000 mm): Footprint J2
-[lib_footprint_mismatch]: Footprint 'PinSocket_2x32_P2.54mm_Horizontal' does not match copy in library 'Connector_PinSocket_2.54mm'
-    Local override; warning
-    @(10.6300 mm, 58.5400 mm): Footprint J1
+** Found 0 DRC violations **
 
 ** Found 0 unconnected pads **
 

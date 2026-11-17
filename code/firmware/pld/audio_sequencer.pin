@@ -1,0 +1,29 @@
+
+
+ Pin # | Name     | Pin Type
+-----------------------------
+   1   | CLK      | Clock/Input
+   2   | IOSEL    | Input
+   3   | MATCH    | Input
+   4   | AS       | Input
+   5   | LDS      | Input
+   6   | RW       | Input
+   7   | RESET    | Input
+   8   | A1       | Input
+   9   | A16      | Input
+  10   | A17      | Input
+  11   | A18      | Input
+  12   | GND      | GND
+  13   | A19      | Input
+  14   | DTACK    | Output
+  15   | NREQ     | Output
+  16   | BDIR     | Output
+  17   | S6       | Output
+  18   | S5       | Output
+  19   | S4       | Output
+  20   | S3       | Output
+  21   | S2       | Output
+  22   | S1       | Output
+  23   | S0       | Output
+  24   | VCC      | VCC
+
