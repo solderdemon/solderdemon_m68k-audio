@@ -19,14 +19,17 @@ def main():
  readme = OUT.parents[2] / 'README.md'
  text = readme.read_bytes()
  newline = b'\r\n' if b'\r\n' in text else b'\n'
- section = '<!-- music-demo -->\n## Musical demo: Korobeiniki (Tetris theme)\n\n[`code/software/music_demo`](code/software/music_demo/README.md) contains a 30-second original\nchiptune arrangement of the traditional Korobeiniki melody, familiar from Tetris.\nIt builds from solo to bass, arpeggios, stereo voice swap, and noise percussion.\nBuild with `rosco build --docker`; instructions and a WAV preview are included.\n\n'.encode().replace(b'\n', newline)
- anchor = b'## Manufacturing & Hardware Files'
- assert anchor in text
- if b'<!-- music-demo -->' in text:
-  start = text.index(b'<!-- music-demo -->')
-  text = text[:start] + section + text[text.index(anchor, start):]
+ section = '<!-- music-demo -->\n### Musical demo: Korobeiniki (Tetris theme)\n\n[`code/software/music_demo`](code/software/music_demo/README.md) contains a 30-second original\nchiptune arrangement of the traditional Korobeiniki melody, familiar from Tetris.\nIt builds from solo to bass, arpeggios, stereo voice swap, and noise percussion.\nBuild with `rosco build --docker`; instructions and a WAV preview are included.\n<!-- /music-demo -->\n'.encode().replace(b'\n', newline)
+ start_marker = b'<!-- music-demo -->'
+ end_marker = b'<!-- /music-demo -->'
+ if start_marker in text:
+  start = text.index(start_marker)
+  end = text.index(end_marker, start) + len(end_marker) + len(newline)
+  text = text[:start] + section + text[end:]
  else:
-  text = text.replace(anchor, section + anchor, 1)
+  anchor = b'## Build and verification'
+  assert anchor in text
+  text = text.replace(anchor, section + newline + anchor, 1)
  readme.write_bytes(text)
  (OUT/'solderdemon_audio.h').write_text(
   '/* Generated copy of ../solderdemon_audio.h for the Docker build context. */\n'+
